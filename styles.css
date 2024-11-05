@@ -1,0 +1,18 @@
+body{
+    color: white;
+    background-color: black;
+}
+.container a:link{
+    text-decoration: none;
+    color: white
+}
+.container a:hover{
+    color: yellow;
+}
+p{
+    width: 50%;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
