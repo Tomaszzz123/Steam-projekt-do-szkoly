@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 05, 2024 at 10:38 AM
+-- Generation Time: Lis 12, 2024 at 10:46 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.0.30
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `steam1`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `game_id`) VALUES
+(1, 2, 5),
+(2, 2, 5),
+(9, 5, 5),
+(10, 5, 15),
+(11, 5, 7);
 
 -- --------------------------------------------------------
 
@@ -63,34 +86,35 @@ CREATE TABLE `game` (
   `description` text NOT NULL,
   `developer_id` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
-  `premiere` date DEFAULT NULL
+  `premiere` date DEFAULT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `game`
 --
 
-INSERT INTO `game` (`id`, `title`, `description`, `developer_id`, `publisher_id`, `premiere`) VALUES
-(1, 'Palworld', 'Fight, farm, build and work alongside mysterious creatures called \"Pals\" in this completely new multiplayer, open world survival and crafting game!', 1, 1, '2024-01-19'),
-(2, 'Counter-Strike 2', 'For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.', 2, 2, '2012-08-21'),
-(3, 'Dota 2', 'Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it\'s their 10th hour of play or 1,000th, there\'s always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has taken on a life of its own.', 2, 2, '2013-07-09'),
-(4, 'PUBG: BATTLEGROUNDS', 'Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.', 3, 3, '2017-12-21'),
-(5, 'Apex Legends', 'Apex Legends is the award-winning, free-to-play Hero Shooter from Respawn Entertainment. Master an ever-growing roster of legendary characters with powerful abilities, and experience strategic squad play and innovative gameplay in the next evolution of Hero Shooter and Battle Royale.\r\n\r\n', 4, 4, '2020-11-05'),
-(6, 'NARAKA: BLADEPOINT', 'Dive into the legends of the Far East in NARAKA: BLADEPOINT; team up with friends in fast-paced melee fights for a Battle Royale experience unlike any other. Find your playstyle with a varied cast of heroes with unique skills. More than 20 million players have already joined the fray, play free now!', 5, 5, '2024-09-24'),
-(7, 'Grand Theft Auto V', 'Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the game running at 60 frames per second.', 6, 6, '2015-04-13'),
-(8, 'Baldur\'s Gate 3', 'Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power.', 7, 7, '2023-08-03'),
-(9, 'TEKKEN 8', 'Get ready for the next chapter in the legendary fighting game franchise, TEKKEN 8.', 8, 8, '2024-01-25'),
-(10, 'Cyberpunk 2077', 'Cyberpunk 2077 is an open-world, action-adventure RPG set in the dark future of Night City — a dangerous megalopolis obsessed with power, glamor, and ceaseless body modification.', 9, 9, '2020-12-10'),
-(11, 'Banana', 'Banana is a clicker Game, in which you click a Banana! In Banana you click the Banana to gain even more Bananas! Every 3, you get dropped a banana. Each banana is also made by the community in discord. Come hang out with us and let\'s grow into something awesome !', 10, 10, '2024-09-06'),
-(12, 'Assassin\'s Creed Odyssey', 'Choose your fate in Assassin\'s Creed® Odyssey. From outcast to living legend, embark on an odyssey to uncover the secrets of your past and change the fate of Ancient Greece.', 11, 11, '2018-10-05'),
-(13, 'Far Cry® 3', 'Discover the dark secrets of a lawless island ruled by violence and take the fight to the enemy as you try to escape. You’ll need more than luck to escape alive!', 11, 11, '2012-12-04'),
-(14, 'The Witcher 3: Wild Hunt', 'You are Geralt of Rivia, mercenary monster slayer. Before you stands a war-torn, monster-infested continent you can explore at will. Your current contract? Tracking down Ciri — the Child of Prophecy, a living weapon that can alter the shape of the world.', 9, 9, '2015-05-18'),
-(15, 'The Witcher 2: Assassins of Kings Enhanced Edition', 'A time of untold chaos has come. Mighty forces clash behind the scenes in a struggle for power and influence. The Northern Kingdoms mobilize for war. But armies on the march are not enough to stop a bloody conspiracy...', 9, 9, '2012-04-17'),
-(16, 'Assassin\'s Creed Revelations', 'Ezio Auditore walks in the footsteps of the legendary mentor Altair, on a dangerous journey of discovery and revelation.', 11, 11, '2011-11-29'),
-(17, 'Far Cry 5', 'Discover the open world of Hope County, Montana, besieged by a fanatical doomsday cult. Dive into the action solo or two-player co-op in the story campaign, use a vast arsenal of weapons and allies, and free Hope County from Joseph Seed and his cult.', 11, 11, '2018-03-27'),
-(18, 'Grand Theft Auto 2', 'Grand Theft Auto is back. The cars are faster. The streets are busier. The bad guys are nastier. The police are angrier. And now, the FBI and the Army are getting involved... Seven ruthless gangs are involved in a ruthless power struggle and it is up to you to make a name for yourself. Respect is earned, not given.', 6, 6, '2008-01-04'),
-(19, 'Grand Theft Auto: Vice City - The Definitive Edition', 'Welcome to the 1980s. From the decade of big hair and pastel suits comes the story of one man\'s rise to the top of the criminal pile. Grand Theft Auto returns with Tommy Vercetti’s tale of betrayal and revenge in a neon-soaked tropical town full of excess and brimming with possibilities', 6, 6, '2023-01-19'),
-(20, 'EA SPORTS™ FIFA 2', 'FIFA 23 brings The World’s Game to the pitch, with HyperMotion2 Technology, men’s and women’s FIFA World Cup™, women’s club teams, cross-play features**, and more.', 12, 12, '2022-09-30');
+INSERT INTO `game` (`id`, `title`, `description`, `developer_id`, `publisher_id`, `premiere`, `price`) VALUES
+(1, 'Palworld', 'Fight, farm, build and work alongside mysterious creatures called \"Pals\" in this completely new multiplayer, open world survival and crafting game!', 1, 1, '2024-01-19', 139),
+(2, 'Counter-Strike 2', 'For over two decades, Counter-Strike has offered an elite competitive experience, one shaped by millions of players from across the globe. And now the next chapter in the CS story is about to begin. This is Counter-Strike 2.', 2, 2, '2012-08-21', 70),
+(3, 'Dota 2', 'Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it\'s their 10th hour of play or 1,000th, there\'s always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has taken on a life of its own.', 2, 2, '2013-07-09', 0),
+(4, 'PUBG: BATTLEGROUNDS', 'Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.', 3, 3, '2017-12-21', 0),
+(5, 'Apex Legends', 'Apex Legends is the award-winning, free-to-play Hero Shooter from Respawn Entertainment. Master an ever-growing roster of legendary characters with powerful abilities, and experience strategic squad play and innovative gameplay in the next evolution of Hero Shooter and Battle Royale.\r\n\r\n', 4, 4, '2020-11-05', 0),
+(6, 'NARAKA: BLADEPOINT', 'Dive into the legends of the Far East in NARAKA: BLADEPOINT; team up with friends in fast-paced melee fights for a Battle Royale experience unlike any other. Find your playstyle with a varied cast of heroes with unique skills. More than 20 million players have already joined the fray, play free now!', 5, 5, '2024-09-24', 0),
+(7, 'Grand Theft Auto V', 'Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the game running at 60 frames per second.', 6, 6, '2015-04-13', 65),
+(8, 'Baldur\'s Gate 3', 'Baldur’s Gate 3 is a story-rich, party-based RPG set in the universe of Dungeons & Dragons, where your choices shape a tale of fellowship and betrayal, survival and sacrifice, and the lure of absolute power.', 7, 7, '2023-08-03', 249),
+(9, 'TEKKEN 8', 'Get ready for the next chapter in the legendary fighting game franchise, TEKKEN 8.', 8, 8, '2024-01-25', 289),
+(10, 'Cyberpunk 2077', 'Cyberpunk 2077 is an open-world, action-adventure RPG set in the dark future of Night City — a dangerous megalopolis obsessed with power, glamor, and ceaseless body modification.', 9, 9, '2020-12-10', 199),
+(11, 'Banana', 'Banana is a clicker Game, in which you click a Banana! In Banana you click the Banana to gain even more Bananas! Every 3, you get dropped a banana. Each banana is also made by the community in discord. Come hang out with us and let\'s grow into something awesome !', 10, 10, '2024-09-06', 0),
+(12, 'Assassin\'s Creed Odyssey', 'Choose your fate in Assassin\'s Creed® Odyssey. From outcast to living legend, embark on an odyssey to uncover the secrets of your past and change the fate of Ancient Greece.', 11, 11, '2018-10-05', 250),
+(13, 'Far Cry® 3', 'Discover the dark secrets of a lawless island ruled by violence and take the fight to the enemy as you try to escape. You’ll need more than luck to escape alive!', 11, 11, '2012-12-04', 80),
+(14, 'The Witcher 3: Wild Hunt', 'You are Geralt of Rivia, mercenary monster slayer. Before you stands a war-torn, monster-infested continent you can explore at will. Your current contract? Tracking down Ciri — the Child of Prophecy, a living weapon that can alter the shape of the world.', 9, 9, '2015-05-18', 100),
+(15, 'The Witcher 2: Assassins of Kings Enhanced Edition', 'A time of untold chaos has come. Mighty forces clash behind the scenes in a struggle for power and influence. The Northern Kingdoms mobilize for war. But armies on the march are not enough to stop a bloody conspiracy...', 9, 9, '2012-04-17', 40),
+(16, 'Assassin\'s Creed Revelations', 'Ezio Auditore walks in the footsteps of the legendary mentor Altair, on a dangerous journey of discovery and revelation.', 11, 11, '2011-11-29', 60),
+(17, 'Far Cry 5', 'Discover the open world of Hope County, Montana, besieged by a fanatical doomsday cult. Dive into the action solo or two-player co-op in the story campaign, use a vast arsenal of weapons and allies, and free Hope County from Joseph Seed and his cult.', 11, 11, '2018-03-27', 250),
+(18, 'Grand Theft Auto 2', 'Grand Theft Auto is back. The cars are faster. The streets are busier. The bad guys are nastier. The police are angrier. And now, the FBI and the Army are getting involved... Seven ruthless gangs are involved in a ruthless power struggle and it is up to you to make a name for yourself. Respect is earned, not given.', 6, 6, '2008-01-04', 30),
+(19, 'Grand Theft Auto: Vice City - The Definitive Edition', 'Welcome to the 1980s. From the decade of big hair and pastel suits comes the story of one man\'s rise to the top of the criminal pile. Grand Theft Auto returns with Tommy Vercetti’s tale of betrayal and revenge in a neon-soaked tropical town full of excess and brimming with possibilities', 6, 6, '2023-01-19', 270),
+(20, 'EA SPORTS™ FIFA 23', 'FIFA 23 brings The World’s Game to the pitch, with HyperMotion2 Technology, men’s and women’s FIFA World Cup™, women’s club teams, cross-play features**, and more.', 12, 12, '2022-09-30', 299);
 
 -- --------------------------------------------------------
 
@@ -116,9 +140,13 @@ INSERT INTO `game_library` (`id`, `user_id`, `game_id`) VALUES
 (5, 2, 7),
 (6, 3, 9),
 (7, 3, 4),
-(8, 5, 4),
-(9, 5, 10),
-(10, 5, 3);
+(17, 5, 18),
+(25, 5, 6),
+(35, 5, 13),
+(36, 5, 20),
+(37, 5, 1),
+(38, 5, 9),
+(39, 5, 10);
 
 -- --------------------------------------------------------
 
@@ -514,7 +542,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `token`) VALUES
-(10, 5, '4b0341b3m5h5uq7r7mdkeu5h3n');
+(10, 5, '4b0341b3m5h5uq7r7mdkeu5h3n'),
+(14, 5, 'ramqfu0vt8a8sslolsp3hggedc');
 
 -- --------------------------------------------------------
 
@@ -746,6 +775,13 @@ INSERT INTO `users` (`id`, `email`, `password`) VALUES
 --
 
 --
+-- Indeksy dla tabeli `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `game_id` (`game_id`);
+
+--
 -- Indeksy dla tabeli `developers`
 --
 ALTER TABLE `developers`
@@ -818,6 +854,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `developers`
 --
 ALTER TABLE `developers`
@@ -833,7 +875,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT for table `game_library`
 --
 ALTER TABLE `game_library`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `game_tags`
@@ -857,7 +899,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tags`
@@ -880,6 +922,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`);
 
 --
 -- Constraints for table `game`
