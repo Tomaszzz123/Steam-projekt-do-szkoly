@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-    <h1>Game list:</h1>   
+    <h1>Lista gier:</h1>   
     <ul>
 <?php
  require_once "./conect.php";
@@ -29,6 +29,7 @@
 </ul>
 </div>
 <a href="logowanie.php">Logowanie</a><br><br>
-<a href="./my_library.php">Twoje gry</a>
+<a href="./my_library.php">Twoje gry</a><br><br>
+<a href="./cart.php">Koszyk</a>
 </body>
 </html>
