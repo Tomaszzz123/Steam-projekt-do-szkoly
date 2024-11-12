@@ -22,8 +22,9 @@ if(isset($_GET['id'])){
         $wynik = mysqli_query($polaczenie,"SELECT * FROM game WHERE id=$id"  );
         while($row = mysqli_fetch_array($wynik)){
            echo '<h1> '.$row['title'].'</h1><br>';
-           echo '<p> Game description: <br> '.$row['description'].'</p>';
+           echo '<p>Opis gry: <br> '.$row['description'].'</p>';
            echo '<title>'.$row['title'].' </title>';
+           echo '<h3> Cena: '.$row['price'].' PLN </h3>';
         }  
     }
 }
@@ -36,7 +37,8 @@ if( !(isset ($_SESSION['zalogowany'])) || !($_SESSION[
         echo "Zaloguj się aby kupić grę";
     }
 else{
-    echo '<a href="./buy.php?id='.$id.'">Kup</a>';
+    echo '<a href="./buy.php?id='.$id.'">Kup</a> <br>';
+    echo '<a href="./addToCart.php?id='.$id.'">Dodaj do koszyka</a>';
 }
 ?> 
   
