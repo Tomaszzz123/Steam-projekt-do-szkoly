@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Lis 12, 2024 at 10:46 AM
+-- Generation Time: Dec 03, 2024 at 11:18 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.0.30
 
@@ -39,10 +39,7 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `user_id`, `game_id`) VALUES
 (1, 2, 5),
-(2, 2, 5),
-(9, 5, 5),
-(10, 5, 15),
-(11, 5, 7);
+(2, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -146,7 +143,11 @@ INSERT INTO `game_library` (`id`, `user_id`, `game_id`) VALUES
 (36, 5, 20),
 (37, 5, 1),
 (38, 5, 9),
-(39, 5, 10);
+(39, 5, 10),
+(43, 5, 16),
+(45, 5, 2),
+(46, 6, 4),
+(47, 6, 16);
 
 -- --------------------------------------------------------
 
@@ -543,7 +544,14 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `user_id`, `token`) VALUES
 (10, 5, '4b0341b3m5h5uq7r7mdkeu5h3n'),
-(14, 5, 'ramqfu0vt8a8sslolsp3hggedc');
+(14, 5, 'ramqfu0vt8a8sslolsp3hggedc'),
+(15, 5, 'led5nj7cj19b9g171mutqnriqb'),
+(16, 5, 'j8rm17ii7e8et0cuod1a81kcju'),
+(17, 5, '61k464fa6d09ac5c04i3bep4lg'),
+(19, 5, '6g39gtt75br94vuaga8kftmldl'),
+(23, 5, '8a7khjej3jbfro196pa9rktk3k'),
+(25, 5, 'pm7fmolk1udn1vf29n59uoc6kj'),
+(27, 6, 'gfb1qpouu84jt9nngu4ipf0tg0');
 
 -- --------------------------------------------------------
 
@@ -768,7 +776,71 @@ INSERT INTO `users` (`id`, `email`, `password`) VALUES
 (2, 'ada', '$2y$10$BY7hd.PQMNAYtLAPdY4H8u8oYafFjsvaeZta22PF71.ZPbdc7gNqC'),
 (3, 'asd', '$2y$10$UPLBhb5OYB3LagTmzLB//.2XpsdVq2bYtOm6.81oZW.XifDaf.qc6'),
 (4, 'sebatogej', '$2y$10$BZgbh16KpA29aE0AIbchPOJOEO0hs4i.UpfGOBMfnsCGwBJp6wGyW'),
-(5, 'test', '$2y$10$AWWIo8rImpInKSQY5UcPQu6ANm86S0X3jz9s4j7saDACLJ8jWzl/y');
+(5, 'test', '$2y$10$AWWIo8rImpInKSQY5UcPQu6ANm86S0X3jz9s4j7saDACLJ8jWzl/y'),
+(6, 'test1', '$2y$10$PRViP3vuX.HWgTWey/1WD.k6vSBtJz9Vft8PyEYZcKvlXQXUIWabW');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `wallet_balance_cache`
+--
+
+CREATE TABLE `wallet_balance_cache` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `balance` int(11) NOT NULL,
+  `last_transaction_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wallet_balance_cache`
+--
+
+INSERT INTO `wallet_balance_cache` (`id`, `user_id`, `updated_at`, `balance`, `last_transaction_id`) VALUES
+(10, 5, '2024-12-03 10:32:00', 55, 22),
+(14, 6, '2024-12-03 11:15:16', 20, 26);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `wallet_transactions`
+--
+
+CREATE TABLE `wallet_transactions` (
+  `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `kwota` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wallet_transactions`
+--
+
+INSERT INTO `wallet_transactions` (`id`, `created_at`, `updated_at`, `kwota`, `user_id`) VALUES
+(1, '2024-11-26 00:00:00', '2024-11-26 10:34:52', -41, 2),
+(2, '2024-11-26 10:35:05', '2024-11-26 10:35:05', 5, 19),
+(3, '2024-11-26 10:38:28', '2024-11-26 10:38:28', 1, 2),
+(8, '2024-11-26 10:42:21', '2024-11-26 10:42:21', 20, 5),
+(9, '2024-11-26 10:42:26', '2024-11-26 10:42:26', 20, 5),
+(10, '2024-11-26 10:45:54', '2024-11-26 10:45:54', 20, 5),
+(11, '2024-11-26 10:46:00', '2024-11-26 10:46:00', 20, 5),
+(12, '2024-11-26 10:46:18', '2024-11-26 10:46:18', 20, 5),
+(14, '2024-11-26 11:15:56', '2024-11-26 11:15:56', 20, 5),
+(15, '2024-11-26 11:31:39', '2024-11-26 11:31:39', -105, 5),
+(16, '2024-12-03 09:51:00', '2024-12-03 09:51:00', 20, 5),
+(17, '2024-12-03 10:13:15', '2024-12-03 10:13:15', 20, 5),
+(18, '2024-12-03 10:13:44', '2024-12-03 10:13:44', 20, 5),
+(19, '2024-12-03 10:18:12', '2024-12-03 10:18:12', 100, 5),
+(20, '2024-12-03 10:19:55', '2024-12-03 10:19:55', -70, 5),
+(21, '2024-12-03 10:31:39', '2024-12-03 10:31:39', 20, 5),
+(22, '2024-12-03 10:32:00', '2024-12-03 10:32:00', -70, 5),
+(23, '2024-12-03 10:34:20', '2024-12-03 10:34:20', 20, 6),
+(24, '2024-12-03 10:36:34', '2024-12-03 10:36:34', 40, 6),
+(25, '2024-12-03 10:48:42', '2024-12-03 10:48:42', 20, 6),
+(26, '2024-12-03 11:15:16', '2024-12-03 11:15:16', -60, 6);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -850,6 +922,20 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeksy dla tabeli `wallet_balance_cache`
+--
+ALTER TABLE `wallet_balance_cache`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD KEY `last_transaction_id` (`last_transaction_id`);
+
+--
+-- Indeksy dla tabeli `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -857,7 +943,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `developers`
@@ -875,7 +961,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT for table `game_library`
 --
 ALTER TABLE `game_library`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `game_tags`
@@ -899,7 +985,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tags`
@@ -917,7 +1003,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `wallet_balance_cache`
+--
+ALTER TABLE `wallet_balance_cache`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
@@ -956,6 +1054,13 @@ ALTER TABLE `game_tags`
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `wallet_balance_cache`
+--
+ALTER TABLE `wallet_balance_cache`
+  ADD CONSTRAINT `wallet_balance_cache_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `wallet_balance_cache_ibfk_2` FOREIGN KEY (`last_transaction_id`) REFERENCES `wallet_transactions` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
