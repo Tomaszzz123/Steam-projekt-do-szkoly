@@ -38,8 +38,9 @@ if(isset($_GET['id'])){
 else{
     echo "Błąd";
 } 
+echo ' <center><a href="../game/show.php?id='.$id_game.'">Powrot</a></center>';
 ?>
- <center><a href="../index.php">Powrót</a></center>
+
 
                
 </body>

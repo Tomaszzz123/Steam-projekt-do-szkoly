@@ -27,14 +27,13 @@ if(isset($_GET['id'])){
     else{
         echo "Nie możesz zakupić tej gry ponieważ już ją posiadasz";
     }
-
-
+echo ' <center><a href="../game/show.php?id='.$id_game.'">Powrot</a></center>';
 }
 else{
     echo "Błąd";
 } 
 ?>
- <center><a href="../index.php">Powrót</a></center>
+
 
                
 </body>
