@@ -31,10 +31,21 @@ if( !(isset ($_SESSION['zalogowany'])) || !($_SESSION[
         exit();
     }
 else{
-    global $user_ID;
-    mysqli_query($polaczenie,"INSERT INTO game_library (user_id, game_id) SELECT user_id, game_id FROM cart WHERE user_id=".$user_ID.";" );
-    mysqli_query($polaczenie,"DELETE FROM `cart` WHERE `cart`.`user_id` = ".$user_ID.";" );  
-    echo "<p>Gry z twojego koszyka zostały dodnane do twojej biblioteki</p>";
+    if(isset($_GET['platnosc'])){
+        $sumaOperacji = $_GET['platnosc'] * -1;
+        mysqli_query($polaczenie, "INSERT INTO `wallet_transactions` (`id`, `created_at`, `updated_at`, `kwota`, `user_id`) VALUES (NULL, current_timestamp(), current_timestamp(), '".$sumaOperacji."', '".$user_ID."');");
+        
+            $wynik = mysqli_query($polaczenie, "SELECT SUM(kwota), max(id)  FROM wallet_transactions WHERE user_id=".$user_ID.";");
+            $row = mysqli_fetch_row($wynik);
+            $lastBalance = $row[0];
+            $lastTransaction = $row[1];
+            mysqli_query($polaczenie, "REPLACE INTO `wallet_balance_cache` (`id`, `user_id`, `updated_at`, `balance`, `last_transaction_id`) VALUES (NULL, '".$user_ID."', current_timestamp(), '".$lastBalance."', '".$lastTransaction."');");
+          
+    }
+        global $user_ID;
+        mysqli_query($polaczenie,"INSERT INTO game_library (user_id, game_id) SELECT user_id, game_id FROM cart WHERE user_id=".$user_ID.";" );
+        mysqli_query($polaczenie,"DELETE FROM `cart` WHERE `cart`.`user_id` = ".$user_ID.";" );  
+        echo "<p>Gry z twojego koszyka zostały dodnane do twojej biblioteki</p>";
 }
 ?>
  <center><a href="./index.php">Powrót</a></center>

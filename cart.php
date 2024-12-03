@@ -7,11 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h2>Gry w twoim koszyku:</h2>
+<div class="menu">
+<a href="index.php">Home</a><a href="./my_library.php">Twoje gry</a><a href="./cart.php">Koszyk</a><a href="./wallet/">Portfel</a>
 <?php
 require_once "./conect.php";
-    session_start();
-    $polaczenie = new mysqli( $db_host, $db_user, $db_pass, $db_name);
+session_start();
+$polaczenie = new mysqli( $db_host, $db_user, $db_pass, $db_name);
+            $user_ID = $_SESSION['user_ID'];
+            $wynik = mysqli_query($polaczenie, "SELECT balance FROM wallet_balance_cache WHERE user_id=".$user_ID.";");
+            if($row = mysqli_fetch_row($wynik)){
+                echo '<a id="userinfo">Witaj '.$_SESSION['username'].' <br>Portfel: '.$row[0].' PLN</a>';
+            }
+            else{
+                echo '<a id="userinfo">Witaj '.$_SESSION['username'].' <br>Portfel: 0 PLN</a>';
+            }
+        ?>
+        
+    </div>
+<h2>Gry w twoim koszyku:</h2>
+<?php
+// require_once "./conect.php";
+//     session_start();
+//     $polaczenie = new mysqli( $db_host, $db_user, $db_pass, $db_name);
 
     if(isset($_SESSION['sessionId']) && isset($_SESSION['user_ID'])){
         $token = $_SESSION['sessionId'];
@@ -50,13 +67,24 @@ require_once "./conect.php";
                 $wynik1 = mysqli_query($polaczenie,"SELECT SUM(price) FROM cart,game WHERE game_id=game.id AND user_id=$id;" );
                 while($row = mysqli_fetch_array($wynik1)){
                     echo '<p>Suma gier w koszyku: '.$row['SUM(price)'].'  PLN'; 
-                    }  
+                    $suma = $row['SUM(price)'];         
+                  }  
             }
     }
 ?>
+
+<?php
+     $wynik = mysqli_query($polaczenie, "SELECT SUM(kwota) FROM wallet_transactions WHERE user_id=".$user_ID.";");
+     while($row = mysqli_fetch_array($wynik)){
+        echo "<p>Aktualny stan twojego portfela wynosi: ".$row['SUM(kwota)']." zł</p>"; 
+        }  
+?>
+
 <br>
-<button><a href="./index.php">Powrót do strony głównej</a></button><br>
-<button><a href="./checkout.php">Przejdź do płatności</a></button>
+<button><a href="./checkout.php">Przejdź do płatności</a></button><br>
+<?php
+    echo '<button><a href="./checkout.php?platnosc='.$suma.'">Zapłać za pomocą portfela steam</a></button>';
+?>
 </body>
 </html>
 

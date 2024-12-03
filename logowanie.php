@@ -49,6 +49,7 @@ if(isset($_POST['login'])){
                 $_SESSION['user_ID'] = $id;
                 $sessionId = session_id();
                 $_SESSION['sessionId'] = $sessionId;
+                $_SESSION['username'] = $login;
                 mysqli_query($polaczenie, "INSERT INTO `sessions` (`id`, `user_id`, `token`) VALUES (NULL, '$id', '$sessionId');");
                 header("Location: my_library.php");
         }
